@@ -15,21 +15,14 @@ export class Rect {
     }
 
     public moveRight(): void {
-        console.log("moveRight:",this.x)
-
         if(this.x < (this.ctx.canvas.width - this.w)){
             this.x += this.speed
         }
-        console.log("moveRight:",this.x)
-
     }
     public moveLeft(): void {
-        console.log("moveLeft:",this.x)
         if(this.x > 0){
             this.x -= this.speed
         }
-        console.log("moveLeft:",this.x)
-
     }
 
     public draw(): void {

@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 
 import * as mainCharSelector from "../selector/mainChar.selector"
 
+import { fromRoot } from '../reducer/indexgit';
+
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
@@ -25,7 +27,12 @@ export class GameComponent implements OnInit {
   mainChar$!: Observable<any>;
   speed$!: Observable<number>;
 
-  constructor(public render: Renderer2, private store: Store<{ mainChar: any}>) { }
+  constructor(
+    public render: Renderer2, 
+    private store: Store<{ mainChar: any }>,
+    private gitStore: Store<{ gitStore:any }>
+    
+    ) { }
 
   ngOnInit(): void {
     this.mainChar$ = this.store.pipe(select('mainChar'))
@@ -39,7 +46,6 @@ export class GameComponent implements OnInit {
     },1)
     /* Render */
     this.render.listen('document','keydown', (e:any) => {
-      console.log("e: ", e)
       if(e.key === "ArrowRight"){
         this.right = true
       }else if (e.key === "ArrowLeft"){
@@ -101,4 +107,13 @@ export class GameComponent implements OnInit {
     })
   }
 
+  /********/
+  getApiData(){
+    this.gitStore.dispatch(fromRoot.ApiGetData({id: "jorgecardozo"}))
+    this.store.subscribe(a => console.log(a))
+  }
+  getError(){
+    this.gitStore.dispatch(fromRoot.ApiGetDataError({id: "jorgecardozo"}))
+    this.store.subscribe(a => console.log(a))
+  }
 }

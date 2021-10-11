@@ -10,6 +10,9 @@ import { CounterComponent } from './counter/counter.component';
 import { GameComponent } from './game/game.component';
 import { mainReducer} from './reducer/mainchar.reducer';
 
+import { EffectsModule } from "@ngrx/effects"
+import { fromRoot } from './reducer/indexgit';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,8 +21,9 @@ import { mainReducer} from './reducer/mainchar.reducer';
   ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot({ count: counterReducer, mainChar: mainReducer }),
+    StoreModule.forRoot({ count: counterReducer, mainChar: mainReducer, gitState: fromRoot.gitReducer }),
     // StoreModule.forRoot({ mainChar: mainReducer })
+    EffectsModule.forRoot([fromRoot.GitEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]
