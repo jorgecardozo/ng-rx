@@ -18,8 +18,8 @@ import { mainReducer} from './reducer/mainchar.reducer';
   ],
   imports: [
     BrowserModule,
-    // StoreModule.forRoot({ count: counterReducer, mainChar: mainReducer }),
-    StoreModule.forRoot({ mainChar: mainReducer })
+    StoreModule.forRoot({ count: counterReducer, mainChar: mainReducer }),
+    // StoreModule.forRoot({ mainChar: mainReducer })
   ],
   providers: [],
   bootstrap: [AppComponent]

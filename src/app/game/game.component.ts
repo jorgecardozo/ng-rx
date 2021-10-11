@@ -1,9 +1,12 @@
+import { speed } from './../action/mainchar.action';
 import { Component, OnInit, ViewChild, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
 import { Rect } from './rect'
 
 import * as main from "../action/mainchar.action"
 import { Store, select } from "@ngrx/store"
 import { Observable } from 'rxjs';
+
+import * as mainCharSelector from "../selector/mainChar.selector"
 
 @Component({
   selector: 'app-game',
@@ -20,11 +23,14 @@ export class GameComponent implements OnInit {
   left = false
 
   mainChar$!: Observable<any>;
+  speed$!: Observable<number>;
 
   constructor(public render: Renderer2, private store: Store<{ mainChar: any}>) { }
 
   ngOnInit(): void {
     this.mainChar$ = this.store.pipe(select('mainChar'))
+    this.speed$ = this.store.pipe(select(mainCharSelector.getSpeed))
+
     this.ctx = this.canvas.nativeElement.getContext('2d')
     this.rect = new Rect(this.ctx, 0, 50, 100, 'red')
 
@@ -47,9 +53,7 @@ export class GameComponent implements OnInit {
   }
 
   public draw(): void {
-    // console.log("this.canvas: ", this.canvas.nativeElement) 
-    //  this.ctx = this.canvas.nativeElement.getContext('2D')
-    // this.rect = new Rect(this.ctx, 0, 50, 100, 'red')
+
       this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
       this.ctx.fillStyle = 'black';
       this.ctx.fillRect(0, this.canvas.nativeElement.height - 40, this.canvas.nativeElement.width, 40);
@@ -59,8 +63,8 @@ export class GameComponent implements OnInit {
         this.rect.moveLeft();
       }
       this.rect.draw();
-
-      // this.speed$ = this.store.pipe(select(mainCharSelector.getSpeed));
+      //Lo ponemos aca para que siempre actualice el valor de speed
+      this.speed$ = this.store.pipe(select(mainCharSelector.getSpeed));
 
       this.requestId = requestAnimationFrame(() => this.draw);
 

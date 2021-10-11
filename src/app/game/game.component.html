@@ -4,6 +4,12 @@
         <canvas id="can" #canvas width="800" height="600"></canvas>
     </div>
 
-    <button (click)="normal()">Normal</button>
-    <button (click)="speed(2)">Speed</button>
-    <button (click)="slow(0.2)">Slow</button>
+    <div class="debug">
+        <h3>Debug:</h3>
+
+        <button (click)="normal()">Normal()</button>
+        <button (click)="speed(2)">Speed(2)</button>
+        <button (click)="slow(0.2)">Slow(0.2)</button>
+        
+        <h4>Velocidad: {{ speed$ | async }}</h4>
+    </div>
